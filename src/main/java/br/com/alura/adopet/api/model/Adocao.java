@@ -1,10 +1,6 @@
 package br.com.alura.adopet.api.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -32,14 +28,6 @@ public class Adocao {
 
     private String justificativaStatus;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Adocao adocao = (Adocao) o;
-        return Objects.equals(id, adocao.id);
-    }
-
     public Adocao(Tutor tutor, Pet pet, String motivo) {
         this.tutor = tutor;
         this.pet = pet;
@@ -48,8 +36,14 @@ public class Adocao {
         this.data = LocalDateTime.now();
     }
 
-    public Adocao() {
+    public Adocao(){}
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Adocao adocao = (Adocao) o;
+        return Objects.equals(id, adocao.id);
     }
 
     @Override
@@ -73,28 +67,28 @@ public class Adocao {
         return pet;
     }
 
+    public void setPet(Pet pet) {
+        this.pet = pet;
+    }
 
     public String getMotivo() {
         return motivo;
     }
 
-
     public StatusAdocao getStatus() {
         return status;
     }
-
 
     public String getJustificativaStatus() {
         return justificativaStatus;
     }
 
-    public void marcarComoAprovado() {
-
+    public void marcarComoAprovada() {
         this.status = StatusAdocao.APROVADO;
     }
 
     public void marcarComoReprovada(String justificativa) {
-        this.justificativaStatus = justificativa;
         this.status = StatusAdocao.REPROVADO;
+        this.justificativaStatus = justificativa;
     }
 }

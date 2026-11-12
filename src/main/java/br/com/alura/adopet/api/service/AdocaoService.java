@@ -55,7 +55,7 @@ public class AdocaoService {
     public void aprovar(AprovacaoAdocaoDto dto){
 
         Adocao adocao = repository.getReferenceById(dto.idAdocao());
-        adocao.marcarComoAprovado();
+        adocao.marcarComoAprovada();
 //        repository.save(adocao);
 
         emailService.enviarEmail(adocao.getTutor().getEmail(), "Adoção aprovada",
