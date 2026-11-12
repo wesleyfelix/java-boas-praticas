@@ -21,18 +21,20 @@ public class ValidacaoPetComAdocaoEmAndamento implements ValidacaoSolicitacaoAdo
     private AdocaoRepository repository;
 
     @Autowired
-    private TutorRepository tutorRepository;
+    private PetRepository petRepository;
 
     public void validar(SolicitacaoAdocaoDto dto){
 
-        Tutor tutor = tutorRepository.getReferenceById(dto.idTutor());
+        Pet pet = petRepository.getReferenceById(dto.idPet());
 
         List<Adocao> adocoes = repository.findAll();
 
         for (Adocao a : adocoes) {
-            if (a.getTutor() == tutor && a.getStatus() == StatusAdocao.AGUARDANDO_AVALIACAO) {
-                throw new ValidacaoException("Tutor já possui outra adoção aguardando avaliação!");
+            if (a.getPet() == pet && a.getStatus() == StatusAdocao.AGUARDANDO_AVALIACAO) {
+                throw new ValidacaoException("Pet já está aguardando avaliação para ser adotado!");
             }
         }
+
+
     }
 }
